@@ -27,6 +27,6 @@ from numpy import *
 #
 # plt.show()
 
-datingClassTest()
+# datingClassTest()
 
 # autoClassifyPerson()

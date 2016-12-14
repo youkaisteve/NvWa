@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="exporter-version" content="Evernote Mac 6.7.1 (453575)"/>
+    <meta name="altitude" content="508.3060302734375"/>
+    <meta name="author" content="游凯"/>
+    <meta name="created" content="2016-12-14 01:06:43 +0000"/>
+    <meta name="latitude" content="30.68497304070624"/>
+    <meta name="longitude" content="103.9501960124833"/>
+    <meta name="source" content="desktop.mac"/>
+    <meta name="updated" content="2016-12-14 02:43:07 +0000"/>
+    <title>Marching Learning in Action</title></head>
+<body>
+<div><span style="font-size: 24px;"><b>Classifying</b></span></div>
+<div><b><span style="font-size: 24px;"><br/></span></b></div>
+<div><b>K-Nesrest Neighbors</b></div>
+<div>     A supervised learning based on distance measurement</div>
+<ul>
+    <li>     advantage</li>
+</ul>
+<div>               high accuracy,insensitive to outliers,no assumptions about data（精度高，对异常值不敏感，无数据输入假定）</div>
+<ul>
+    <li>     disadvantage</li>
+</ul>
+<div>               computation expensive,requires a lot of  memory （计算复杂度高，消耗大量内存）</div>
+<div><br/></div>
+<div>How to perform K-Nesrest Neighbors algorithm</div>
+<div><br/></div>
+<ol>
+    <li>extract dataset and labels
+        <ul>
+            <li>dataset is the real data that is been classified accurately</li>
+            <li>labels represent the classification of every line of data</li>
+        </ul>
+    </li>
+    <li>calculate and normalize the distances (normalize : make distances between 0 to 1)</li>
+    <li>count the classification of the nearest k neighbors and then choose the most one</li>
+    <li>test the algorithm</li>
+</ol>
+<div>          split the dataset to two part,one is used as the accurate dataset,another one is used to predicate</div>
+<div style="margin-left:40px;">ex.</div>
+<div style="margin-left:40px;">      a dataset of size 1000, you can split it to two dataset , the smaller one is
+    100,the bigger one is 900.Use each point in           smaller one to test the algorithm and count the error
+    times.Finally,error count divide the size of the smaller one,here is 100,then you can get the rate of error.
+</div>
+<div><br/></div>
+</body>
+</html>
