@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 from numpy import *
 import random
 
+
 def datingClassTest():
     hoRatio = 0.1
     datingMat, labels = file2matrix('datingclassify/datingTestSet2.txt')
@@ -73,3 +74,5 @@ def autoClassifyPerson():
 # datingClassTest()
 
 # autoClassifyPerson()
+
+handwritingTest()

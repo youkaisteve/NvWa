@@ -1,5 +1,6 @@
 from numpy import *
 import operator
+from os import listdir
 
 
 def createDataSet():
@@ -52,3 +53,55 @@ def autoNorm(dataSet):
     normalDataSet = normalDataSet / tile(ranges, (m, 1))
 
     return normalDataSet, ranges, minVals
+
+
+# 32*32 image pixel
+def img2Vector(file):
+    resultVector = zeros((1, 1024))
+    i = 0
+    fr = open(file)
+    for line in fr.readlines():
+        for j in range(32):
+            resultVector[0, 32 * i + j] = int(line[j])
+        i += 1
+    return resultVector
+
+
+def handwritingTest():
+    hwLabels = []
+
+    trainingDir = '/Users/youkai/Downloads/trainingDigits'
+    testDir = '/Users/youkai/Downloads/testDigits'
+
+    trainingFiles = listdir(trainingDir)
+    m = len(trainingFiles)
+    trainingMat = zeros((m, 1024))
+    for i in range(m):
+        trainingFileStr = trainingFiles[i].split('.')[0]
+        classname = trainingFileStr.split('_')[0]
+        hwLabels.append(classname)
+
+        trainingMat[i, :] = img2Vector('%s/%s' % (trainingDir, trainingFiles[i]))
+
+    testFiles = listdir(testDir)
+    mTest = len(testFiles)
+
+    errorCount = 0
+    for i in range(mTest):
+        testFileStr = testFiles[i].split('.')[0]
+        forTestClassName = int(testFileStr.split('_')[0])
+        testInX = img2Vector('%s/%s' % (testDir, testFiles[i]))
+        classifiedClassName = classify0(testInX, trainingMat, hwLabels, 3)
+
+        classifiedClassName = int(classifiedClassName)
+        isAccurate = forTestClassName == classifiedClassName
+
+        if isAccurate == True:
+            print('\033[32m classname for test is %d,classified classname is %d,you are right ' % (
+                forTestClassName, int(classifiedClassName)))
+        else:
+            print('\033[31m classname for test is %d,classified classname is %d,you are wrong' % (
+                forTestClassName, int(classifiedClassName)))
+            errorCount += 1
+
+    print('error rate is : %f' % (int(errorCount) / int(mTest)))
