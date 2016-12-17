@@ -102,14 +102,13 @@ def createTree(dataset, labels):
 
     myTree = {bestFeatLabel: {}}
     for val in uniqueValues:
-        myTree[bestFeatLabel][val] = createTree(splitDataSet(dataset, bestFeat, val), newLabels)
+        myTree[bestFeatLabel][val] = createTree(re(dataset, bestFeat, val), newLabels)
 
     return myTree
 
 
 def classify(testVec, myTree, labels):
     firstStr = list(myTree.keys())[0]
-    print(firstStr)
     featIndex = labels.index(firstStr)
     secondTree = myTree[firstStr]
 
