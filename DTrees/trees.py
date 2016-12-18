@@ -1,5 +1,6 @@
 from math import log
 import operator
+import pickle
 
 
 def createDataSet():
@@ -102,7 +103,7 @@ def createTree(dataset, labels):
 
     myTree = {bestFeatLabel: {}}
     for val in uniqueValues:
-        myTree[bestFeatLabel][val] = createTree(re(dataset, bestFeat, val), newLabels)
+        myTree[bestFeatLabel][val] = createTree(splitDataSet(dataset, bestFeat, val), newLabels)
 
     return myTree
 
@@ -119,3 +120,13 @@ def classify(testVec, myTree, labels):
             else:
                 classLabel = secondTree[secondKey]
     return classLabel
+
+
+def saveTree(treeData, treeName):
+    with open(treeName + '.pickle', 'wb') as f:
+        pickle.dump(treeData, f)
+
+
+def getTree(treeName):
+    fr = open(treeName + '.pickle','rb')
+    return pickle.load(fr)
