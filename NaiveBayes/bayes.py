@@ -29,7 +29,7 @@ def setOfWords2Vec(vocabList, inputSet):
     result = [0] * len(vocabList)
     for word in inputSet:
         if word in vocabList:
-            result[vocabList.index(word)] = 1
+            result[vocabList.index(word)] += 1
     return result
 
 
