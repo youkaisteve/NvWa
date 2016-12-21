@@ -31,6 +31,6 @@ realPositiveInResult = resultPositiveInPositive / resultPositive
 print(realPositiveInResult)
 
 # 不断改变条件3 - averageRate的值，你会发现，当普遍患病概率越高，检查的正确率就越高。
-# 所以医院会做多想检查，最后根据条件概率来判断。
+# 所以医院会做多项检查，最后根据条件概率来判断。
 # 打个比方（也许不是很恰当），检查艾滋病时，吸毒者检查出来呈现阳性的概率就要比一般人高出很多；
 # 如果没有吸毒这个条件，误差的概率会变得较高，就像以上假定实验一样。
