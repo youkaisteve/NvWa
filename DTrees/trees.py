@@ -79,7 +79,7 @@ def majorityCnt(classList):
             classCount[vote] = 0
         classCount[vote] += 1
 
-    sortedClassCount = sorted(classCount.items(), operator.itemgetter(1), reversed=True)
+    sortedClassCount = sorted(classCount.items(), operator.itemgetter(1), reverse=True)
 
     return sortedClassCount[0][0]
 
