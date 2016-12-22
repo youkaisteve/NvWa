@@ -10,7 +10,7 @@ negativeIfPositive = 0.01
 negativeIfNegative = 0.99
 
 # 条件3：一般人群患A病的概率
-averageRate = 0.4
+averageRate = 0.001
 
 # 那么假设有10万人来做检查，误查（没患A病被查出是阳性）的概率是多少？
 
