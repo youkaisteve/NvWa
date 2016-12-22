@@ -5,6 +5,7 @@ Created on Dec 19,2016
 '''
 
 from numpy import *
+import re
 
 
 def loadDataSet():
@@ -59,6 +60,51 @@ def classifyNB0(vec2Classify, pAbusive, p0Vec, p1Vec):
     p1 = sum(p1Vec * vec2Classify) + log(pAbusive)
 
     if p0 > p1:
-        return False
+        return 0
     else:
-        return True
+        return 1
+
+
+def textParser(bigString):
+    splitWords = re.split(r'\w*', bigString)
+    return [word.lower() for word in splitWords if len(word) > 2]
+
+
+def spamTest():
+    docList = []
+    classList = []
+
+    for i in range(1, 26):
+        wordList = textParser(open('ham/%d.txt' % i).read())
+        docList.append(wordList)
+        classList.append(0)
+
+        wordList = textParser(open('spam/%d.txt' % i).read())
+        docList.append(wordList)
+        classList.append(1)
+
+    vocabList = createVocabList(docList)
+
+    trainingSet = list(range(50))
+    testSet = []
+    for i in range(10):
+        randomIndex = int(random.uniform(0, len(trainingSet)))
+        testSet.append(trainingSet[randomIndex])
+        del (trainingSet[randomIndex])
+
+    trainMat = []
+    trainClassVec = []
+
+    for docIndex in trainingSet:
+        trainMat.append(setOfWords2Vec(vocabList, docList[docIndex]))
+        trainClassVec.append(classList[docIndex])
+
+    p0, p1, pAb = trainNB0(trainMat, trainClassVec)
+
+    errorCount = 0
+    for docIndex in testSet:
+        classified = classifyNB0(array(setOfWords2Vec(vocabList, docList[docIndex])), pAb, p0, p1)
+        if classified != classList[docIndex]:
+            errorCount += 1
+
+    print('error rate is : %f' % (float(errorCount) / len(classList)))
