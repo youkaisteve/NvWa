@@ -26,7 +26,7 @@ def createVocabList(dataLists):
     return list(vocabListSet)
 
 
-def setOfWords2Vec(vocabList, inputSet):
+def bagOfWords2VecMN(vocabList, inputSet):
     result = [0] * len(vocabList)
     for word in inputSet:
         if word in vocabList:
@@ -100,14 +100,14 @@ def spamTest(stopwords):
     trainClassVec = []
 
     for docIndex in trainingSet:
-        trainMat.append(setOfWords2Vec(vocabList, docList[docIndex]))
+        trainMat.append(bagOfWords2VecMN(vocabList, docList[docIndex]))
         trainClassVec.append(classList[docIndex])
 
     p0, p1, pAb = trainNB0(trainMat, trainClassVec)
 
     errorCount = 0
     for docIndex in testSet:
-        classified = classifyNB0(array(setOfWords2Vec(vocabList, docList[docIndex])), pAb, p0, p1)
+        classified = classifyNB0(array(bagOfWords2VecMN(vocabList, docList[docIndex])), pAb, p0, p1)
         if classified != classList[docIndex]:
             errorCount += 1
 
@@ -170,7 +170,7 @@ def localWords(feed0, feed1, stopwords):
     trainingMat = []
     for i in range(20):
         randIndex = int(random.uniform(0, len(trainingSet)))
-        trainingMat.append(setOfWords2Vec(vocabList, docList[randIndex]))
+        trainingMat.append(bagOfWords2VecMN(vocabList, docList[randIndex]))
         del (trainingSet[randIndex])
 
     # p0:feed0的条件概率;p1:feed1的条件概率;pf1:feed1记录数相对于总记录的概率
@@ -180,7 +180,7 @@ def localWords(feed0, feed1, stopwords):
     # 在剩下的记录中选择10个来测试
     for i in range(10):
         docIndex = trainingSet[i]
-        testVec = setOfWords2Vec(vocabList, docList[docIndex])
+        testVec = bagOfWords2VecMN(vocabList, docList[docIndex])
         isMoreLikeFeed1 = classifyNB0(testVec, pf1, p0, p1)
         if isMoreLikeFeed1 != classList[docIndex]:
             errorCount += 1
