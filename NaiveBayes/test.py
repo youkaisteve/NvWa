@@ -19,4 +19,4 @@ from bayes import *
 #
 # print(result)
 
-spamTest();
+spamTest()

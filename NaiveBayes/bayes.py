@@ -66,7 +66,7 @@ def classifyNB0(vec2Classify, pAbusive, p0Vec, p1Vec):
 
 
 def textParser(bigString):
-    splitWords = re.split(r'\w*', bigString)
+    splitWords = re.split(r'\W*', bigString)
     return [word.lower() for word in splitWords if len(word) > 2]
 
 
@@ -108,3 +108,16 @@ def spamTest():
             errorCount += 1
 
     print('error rate is : %f' % (float(errorCount) / len(classList)))
+
+    # hamTemp = zeros(len(vocabList))
+    # spamTemp = zeros(len(vocabList))
+    # for docIndex in range(len(trainMat)):
+    #     for wordIndex in range(len(vocabList)):
+    #         if classList[docIndex] == 1:
+    #             spamTemp[wordIndex] += trainMat[docIndex][wordIndex]
+    #         else:
+    #             hamTemp[wordIndex] += trainMat[docIndex][wordIndex]
+    #
+    # for wordIndex in range(len(vocabList)):
+    #     print('word:"%s" occurs %d times in ham,occurs %d times in spam' % (
+    #         vocabList[wordIndex], hamTemp[wordIndex], spamTemp[wordIndex]))
