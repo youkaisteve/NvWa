@@ -1,7 +1,10 @@
 from bayes import *
 import feedparser
 import pickle
+import re
 
+fr = open('stopwords')
+stopWords = re.split(r'\W*', fr.read())
 #
 # postLists, classVec = loadDataSet()
 # vocabList = createVocabList(postLists)
@@ -21,7 +24,7 @@ import pickle
 #
 # print(result)
 
-# spamTest()
+# spamTest(stopWords)
 
 # 纽约
 # ny = feedparser.parse('http://newyork.craigslist.org/stp/index.rss')
@@ -33,7 +36,7 @@ import pickle
 # with open('sf.pickle', 'wb') as f:
 #     pickle.dump(sf, f)
 
-ny = pickle.load(open('ny.pickle', 'rb'))
-sf = pickle.load(open('sf.pickle', 'rb'))
-
-localWords(ny, sf)
+# ny = pickle.load(open('ny.pickle', 'rb'))
+# sf = pickle.load(open('sf.pickle', 'rb'))
+#
+# localWords(ny, sf, stopWords)

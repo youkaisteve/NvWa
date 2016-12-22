@@ -66,11 +66,11 @@ def classifyNB0(vec2Classify, pAbusive, p0Vec, p1Vec):
 
 
 def textParser(bigString):
-    splitWords = re.split(r'\W*', bigString)
+    splitWords = re.split(r'[\W\d]*', bigString)
     return [word.lower() for word in splitWords if len(word) > 2]
 
 
-def spamTest():
+def spamTest(stopwords):
     docList = []
     classList = []
 
@@ -84,6 +84,10 @@ def spamTest():
         classList.append(1)
 
     vocabList = createVocabList(docList)
+
+    for w in stopwords:
+        if w in vocabList:
+            vocabList.remove(w)
 
     trainingSet = list(range(50))
     testSet = []
@@ -135,7 +139,7 @@ def calcMostFreq(vocabList, fullText):
     return sortedFreq[:30]
 
 
-def localWords(feed0, feed1):
+def localWords(feed0, feed1, stopwords):
     docList = []
     classList = []
     fullText = []
@@ -155,11 +159,11 @@ def localWords(feed0, feed1):
 
     vocabList = createVocabList(docList)
 
-    top30Words = calcMostFreq(vocabList, fullText)
+    # top30Words = calcMostFreq(vocabList, fullText)
 
-    for w in top30Words:
-        if w[0] in vocabList:
-            vocabList.remove(w[0])
+    for w in stopwords:
+        if w in vocabList:
+            vocabList.remove(w)
 
     # 先取出用去训练的记录
     trainingSet = list(range(2 * minLen))
