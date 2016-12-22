@@ -7,7 +7,6 @@ Created on Dec 19,2016
 from numpy import *
 import re
 
-
 def loadDataSet():
     postingList = [['my', 'dog', 'has', 'flea', 'problems', 'help', 'please'],
                    ['maybe', 'not', 'take', 'him', 'to', 'dog', 'park', 'stupid'],

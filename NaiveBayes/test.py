@@ -1,4 +1,6 @@
 from bayes import *
+import feedparser
+import pickle
 
 #
 # postLists, classVec = loadDataSet()
@@ -19,4 +21,20 @@ from bayes import *
 #
 # print(result)
 
-spamTest()
+# spamTest()
+
+# 纽约
+# ny = feedparser.parse('http://newyork.craigslist.org/stp/index.rss')
+# with open('ny.pickle', 'wb') as f:
+#     pickle.dump(ny, f)
+#
+# # 旧金山湾区
+# sf = feedparser.parse('http://sfbay.craigslist.org/stp/index.rss')
+# with open('sf.pickle', 'wb') as f:
+#     pickle.dump(sf, f)
+
+ny = pickle.load(open('ny.pickle', 'rb'))
+sf = pickle.load(open('sf.pickle', 'rb'))
+
+print(len(ny['entries']))
+print(len(sf['entries']))
