@@ -36,5 +36,4 @@ import pickle
 ny = pickle.load(open('ny.pickle', 'rb'))
 sf = pickle.load(open('sf.pickle', 'rb'))
 
-print(len(ny['entries']))
-print(len(sf['entries']))
+localWords(ny, sf)

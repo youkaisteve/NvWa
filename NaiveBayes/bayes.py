@@ -7,6 +7,7 @@ Created on Dec 19,2016
 from numpy import *
 import re
 
+
 def loadDataSet():
     postingList = [['my', 'dog', 'has', 'flea', 'problems', 'help', 'please'],
                    ['maybe', 'not', 'take', 'him', 'to', 'dog', 'park', 'stupid'],
@@ -120,3 +121,64 @@ def spamTest():
     # for wordIndex in range(len(vocabList)):
     #     print('word:"%s" occurs %d times in ham,occurs %d times in spam' % (
     #         vocabList[wordIndex], hamTemp[wordIndex], spamTemp[wordIndex]))
+
+
+def calcMostFreq(vocabList, fullText):
+    import operator
+
+    freqDict = {}
+    for token in vocabList:
+        freqDict[token] = fullText.count(token)
+
+    sortedFreq = sorted(freqDict.items(), key=operator.itemgetter(1), reverse=True)
+
+    return sortedFreq[:30]
+
+
+def localWords(feed0, feed1):
+    docList = []
+    classList = []
+    fullText = []
+
+    minLen = min(len(feed0['entries']), len(feed1['entries']))
+
+    for i in range(minLen):
+        wordList = textParser(feed0['entries'][i]['summary'])
+        docList.append(wordList)
+        fullText.extend(wordList)
+        classList.append(0)
+
+        wordList = textParser(feed1['entries'][i]['summary'])
+        docList.append(wordList)
+        fullText.extend(wordList)
+        classList.append(1)
+
+    vocabList = createVocabList(docList)
+
+    top30Words = calcMostFreq(vocabList, fullText)
+
+    for w in top30Words:
+        if w[0] in vocabList:
+            vocabList.remove(w[0])
+
+    # 先取出用去训练的记录
+    trainingSet = list(range(2 * minLen))
+    trainingMat = []
+    for i in range(20):
+        randIndex = int(random.uniform(0, len(trainingSet)))
+        trainingMat.append(setOfWords2Vec(vocabList, docList[randIndex]))
+        del (trainingSet[randIndex])
+
+    # p0:feed0的条件概率;p1:feed1的条件概率;pf1:feed1记录数相对于总记录的概率
+    p0, p1, pf1 = trainNB0(trainingMat, classList)
+
+    errorCount = 0
+    # 在剩下的记录中选择10个来测试
+    for i in range(10):
+        docIndex = trainingSet[i]
+        testVec = setOfWords2Vec(vocabList, docList[docIndex])
+        isMoreLikeFeed1 = classifyNB0(testVec, pf1, p0, p1)
+        if isMoreLikeFeed1 != classList[docIndex]:
+            errorCount += 1
+
+    print('error rate is : %f' % (float(errorCount) / len(classList)))
