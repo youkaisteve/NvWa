@@ -31,7 +31,7 @@ stopWords = re.split(r'\W*', fr.read())
 # with open('ny.pickle', 'wb') as f:
 #     pickle.dump(ny, f)
 #
-# # 旧金山湾区
+# 旧金山湾区
 # sf = feedparser.parse('http://sfbay.craigslist.org/stp/index.rss')
 # with open('sf.pickle', 'wb') as f:
 #     pickle.dump(sf, f)

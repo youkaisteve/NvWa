@@ -97,7 +97,7 @@ def createTree(dataset, labels):
     bestFeatLabel = labels[bestFeat]
 
     newLabels = labels[:]
-    del(newLabels[bestFeat])
+    del (newLabels[bestFeat])
 
     uniqueValues = set([example[bestFeat] for example in dataset])
 
@@ -128,5 +128,5 @@ def saveTree(treeData, treeName):
 
 
 def getTree(treeName):
-    fr = open(treeName + '.pickle','rb')
+    fr = open(treeName + '.pickle', 'rb')
     return pickle.load(fr)
