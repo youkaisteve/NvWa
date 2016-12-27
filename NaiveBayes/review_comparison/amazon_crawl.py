@@ -109,6 +109,7 @@ class AmazonCrawl():
                 self.extract_and_save(data, cnt)
             except HTTPError as e:
                 if e.code == 408:
+                    print('timeout occurs,sleep 60s')
                     time.sleep(60)
                 continue
             except Exception as e:
