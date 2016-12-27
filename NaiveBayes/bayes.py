@@ -111,7 +111,7 @@ def spamTest(stopwords):
         if classified != classList[docIndex]:
             errorCount += 1
 
-    print('error rate is : %f' % (float(errorCount) / len(classList)))
+    print('error rate is : %f' % (float(errorCount) / len(testSet)))
 
     # hamTemp = zeros(len(vocabList))
     # spamTemp = zeros(len(vocabList))
@@ -185,6 +185,6 @@ def localWords(feed0, feed1, stopwords):
         if isMoreLikeFeed1 != classList[docIndex]:
             errorCount += 1
 
-    print('error rate is : %f' % (float(errorCount) / len(classList)))
+    print('error rate is : %f' % (float(errorCount) / 10))
 
     return vocabList, p0, p1
