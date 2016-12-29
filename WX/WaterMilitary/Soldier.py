@@ -41,14 +41,11 @@ class Soldier:
                 '__type__': 'reply'}
         data = parse.urlencode(data).encode('utf-8')
         req = request.Request(str(config['comment']['uri']), data=data, headers=headers, method='POST')
-        response = request.urlopen(req)
-        resData = response.read().decode('utf-8')
-        resJson = json.loads(resData)
-        if resJson['err_code'] == 0:
+        response = json.loads(request.urlopen(req).read().decode('utf-8'))
+        if response['err_code'] == 0:
             print('发表成功')
         else:
-            print('发表失败：err_code:%s,content:%s' % (resJson['err_code'], resJson['data']['content']))
-
+            print('发表失败：err_code:%s,content:%s' % (response['err_code'], response['data']['content']))
 
 # so = Soldier('youkaisteve')
 # so.comment('现在已经有很多网站开始把公众号的内容转化为小程序了！', '小程序', 4891595201, 1971972)
