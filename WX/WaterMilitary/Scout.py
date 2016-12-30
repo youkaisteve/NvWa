@@ -2,9 +2,13 @@
 侦查员：负责分析数据，确定目标帖子
 """
 
-import urllib.request
+from urllib import request, parse
 import urllib
 import random
+import logging
+from lxml import etree
+import re
+from HeadQuarters import *
 
 
 class Scout:
@@ -27,6 +31,18 @@ class Scout:
         opener.addheaders = [headers]
 
     def investigate(self, url):
-        opener = urllib.request.build_opener()
+        opener = request.build_opener()
         self.camouflage(opener)
-        print('要的就是你')
+        response_html = opener.open(url).read().decode('utf-8')
+        self.interpret(response_html)
+
+    def interpret(self, html):
+        selector = etree.HTML(html)
+        article_list = selector.xpath('//ul[@id="thread_list"]//a[@class = "j_th_tit "]')
+        for article_a in article_list:
+            globals().get('msg_queue').append((re.findall(r'\d*', article_a.xpath('@href')[0])[3], article_a.xpath('text()')[0]))
+            print("Scout >>> I find something and send to HeadQuarters")
+
+#
+# scout = Scout()
+# scout.investigate('http://tieba.baidu.com/f?kw=%E5%B0%8F%E7%A8%8B%E5%BA%8F&ie=utf-8&pn=0')

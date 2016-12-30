@@ -7,19 +7,30 @@
 """
 
 from collections import deque
-
+from Scout import Scout
+from StaffOfficer import StaffOfficer
+from Soilder import Soilder
+from HeadQuarters import *
 
 class Commander:
-    # 目标，比如百度贴吧
-    target = None
-    # 参谋
-    StaffOfficers = None
-    # 侦查员
-    Scouts = None
-    # 轰炸机
-    Soldiers = None
-
-    task_queue = deque()
+    def __init__(self, target, StaffOfficer, Scout, Soldier):
+        self._target = target
+        self._StaffOfficer = StaffOfficer
+        self._Scout = Scout
+        self._Soldier = Soldier
 
     def go(self):
         print('给我上！')
+        self._Scout.investigate(self._target)
+        self._StaffOfficer.work()
+        self._Soldier.fight()
+
+
+scout = Scout()
+staff = StaffOfficer()
+soilder = Soilder('youkaisteve')
+commander = Commander('http://tieba.baidu.com/f?kw=%E5%B0%8F%E7%A8%8B%E5%BA%8F&ie=utf-8&pn=0',
+                      staff, scout, soilder)
+
+commander.go()
+
