@@ -77,7 +77,7 @@ class JDCrawl():
                     with open(os.path.join(self.bookname, filename)) as src:
                         shutil.copyfileobj(src, dest)
                         src.close()
-                        # os.remove(os.path.join(self.bookname, filename))
+                        os.remove(os.path.join(self.bookname, filename))
         os.rename(os.path.join(self.bookname, tempfilename), self.bookname + ".txt")
 
     @asyncio.coroutine
@@ -98,30 +98,7 @@ class JDCrawl():
         f = asyncio.wait([self.fetch(task, self.tasks.index(task) + 1) for task in self.tasks])
         loop = asyncio.get_event_loop()
         loop.run_until_complete(f)
-
-        # while self.queue:
-        #     url = self.queue.popleft()
-        #     visited |= {url}
-        #     cnt += 1
-        #     print('已经抓取: ' + str(cnt) + '   正在抓取 <---  ' + url)
-        #
-        #     # 避免程序异常中止, 用try..catch处理异常
-        #     try:
-        #         urlop = opener.open(url)
-        #         data = urlop.read().decode('GBK')
-        #         # print(data)
-        #         objecrStr = re.findall(r'\{.*\}', str(data))[0]
-        #         object = json.loads(objecrStr)
-        #         self.extract_and_save(object, cnt)
-        #     except HTTPError as e:
-        #         if e.code == 408:
-        #             print('timeout occurs,sleep 60s')
-        #             time.sleep(60)
-        #         continue
-        #     except Exception as e:
-        #         print(e)
         loop.close()
-        print('closed')
         self.combineFiles('*.txt')
         self.dispose()
 
