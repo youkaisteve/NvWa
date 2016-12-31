@@ -10,7 +10,7 @@ class StaffOfficer:
 
     def work(self):
         self.isWorking = True
-        while globals().get('msg_queue'):
+        while globals().get('msg_queue') and self.isWorking:
             msg = globals().get('msg_queue').popleft()
             if self.conceive(msg[1]):
                 print('StaffOfficer >>> I make it out in "%s"' % msg[1])

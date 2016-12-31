@@ -56,7 +56,7 @@ class Soilder:
         while globals().get('task_queue'):
             id = globals().get('task_queue').popleft()
             self.comment('就是以前做的那些', '小程序', id, 1971972)
-            time.sleep(5)
+            time.sleep(3)
 
     def done(self):
         self._fighting = False
