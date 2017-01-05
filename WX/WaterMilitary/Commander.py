@@ -12,6 +12,7 @@ from StaffOfficer import StaffOfficer
 from Soilder import Soilder
 from HeadQuarters import *
 
+
 class Commander:
     def __init__(self, target, StaffOfficer, Scout, Soldier):
         self._target = target
@@ -23,7 +24,7 @@ class Commander:
         print('给我上！')
         self._Scout.investigate(self._target)
         self._StaffOfficer.work()
-        self._Soldier.fight()
+        self._Soldier.fight('小程序')
 
 
 scout = Scout()
@@ -31,6 +32,4 @@ staff = StaffOfficer()
 soilder = Soilder('youkaisteve')
 commander = Commander('http://tieba.baidu.com/f?kw=%E5%B0%8F%E7%A8%8B%E5%BA%8F&ie=utf-8&pn=0',
                       staff, scout, soilder)
-
 commander.go()
-

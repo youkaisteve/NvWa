@@ -4,6 +4,7 @@
 
 from collections import deque
 import json
+import configparser
 
 global task_queue
 # 任务队列，存的是帖子的id
@@ -15,3 +16,7 @@ msg_queue = deque()
 
 global message_map
 message_map = json.loads(open('baidu_tieba_messagemap.json').read())
+
+global config
+config = configparser.ConfigParser()
+config.read('tieba.conf')

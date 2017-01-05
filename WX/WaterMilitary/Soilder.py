@@ -2,8 +2,6 @@
 炮灰：负责评论，发帖
 """
 
-import configparser
-import json
 from urllib import request, parse
 from HeadQuarters import *
 import json
@@ -18,8 +16,9 @@ class Soilder:
         """
         self._account = account
         self._fighting = False
+        self.config = globals().get('config')
 
-    def comment(self, content, kw, tid, fid):
+    def comment(self, kw, tid, fid):
         """
         发表评论
         :param content: 评论内容
@@ -28,12 +27,11 @@ class Soilder:
         :param fid:贴吧id
         :return:
         """
-        config = configparser.ConfigParser()
-        config.read('tieba.conf')
-        cookieStr = str(config[self._account]['cookie'])
+        cookie_str = str(self.config[self._account]['cookie'])
+        content = str(self.config[self._account]['water'])
         headers = {
-            'content-type': str(config['comment']['content-type']),
-            'cookie': cookieStr
+            'content-type': str(self.config['comment']['content-type']),
+            'cookie': cookie_str
         }
         data = {'ie': 'utf-8',
                 'kw': kw,
@@ -52,10 +50,12 @@ class Soilder:
             err_code = response['err_code']
             print('发表失败：err_code:%s,content:%s' % (err_code, globals().get('message_map')['messageMap'][err_code]))
 
-    def fight(self):
-        while globals().get('task_queue'):
+    def fight(self, where):
+        fid = str(self.config[where]['fid'])
+        kw = str(self.config[where]['kw'])
+        while globals().get('task_queue') and self._fighting:
             id = globals().get('task_queue').popleft()
-            self.comment('就是以前做的那些', '小程序', id, 1971972)
+            self.comment(kw, id, fid)
             time.sleep(3)
 
     def done(self):
