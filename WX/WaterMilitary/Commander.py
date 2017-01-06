@@ -11,6 +11,7 @@ from Scout import Scout
 from StaffOfficer import StaffOfficer
 from Soilder import Soilder
 from HeadQuarters import *
+from baidu.baiduclient import login
 
 
 class Commander:
@@ -21,7 +22,13 @@ class Commander:
         self._Soldier = Soldier
 
     def go(self):
-        print('给我上！')
+        globals().get('config').read('baidu/tieba.conf')
+        # ok = login('youkaisteve', 'mssj123!@#', '小程序')
+        # if ok:
+        #     print('登录成功')
+        # else:
+        #     print('登录失败')
+
         self._Scout.investigate(self._target)
         self._StaffOfficer.work()
         self._Soldier.fight('小程序')

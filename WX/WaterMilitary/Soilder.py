@@ -49,7 +49,8 @@ class Soilder:
         else:
             err_code = response['err_code']
             print(
-                '发表失败：err_code: %s,content: %s' % (err_code, globals().get('message_map')['messageMap'][str(err_code)]))
+                '发表失败：err_code: %s,content: %s' % (
+                str(err_code), globals().get('message_map')['messageMap'][str(err_code)]))
 
     def fight(self, where):
         fid = str(self.config[where]['fid'])

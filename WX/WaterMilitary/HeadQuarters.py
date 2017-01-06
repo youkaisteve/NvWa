@@ -19,4 +19,3 @@ message_map = json.loads(open('baidu_tieba_messagemap.json').read())
 
 global config
 config = configparser.ConfigParser()
-config.read('tieba.conf')
