@@ -38,21 +38,23 @@ class Soilder:
                 'fid': fid,
                 'tid': tid,
                 'vcode_md5': '',
-                'tbs': '223dd4125c08dd201483064442',
+                'tbs': '3ccb879e4ac38b261483668754',
                 'content': content,
                 '__type__': 'reply'}
         data = parse.urlencode(data).encode('utf-8')
-        req = request.Request(str(config['comment']['uri']), data=data, headers=headers, method='POST')
+        req = request.Request(str(self.config['comment']['uri']), data=data, headers=headers, method='POST')
         response = json.loads(request.urlopen(req).read().decode('utf-8'))
         if response['err_code'] == 0:
             print('发表成功 >>> %s' % tid)
         else:
             err_code = response['err_code']
-            print('发表失败：err_code:%s,content:%s' % (err_code, globals().get('message_map')['messageMap'][err_code]))
+            print(
+                '发表失败：err_code: %s,content: %s' % (err_code, globals().get('message_map')['messageMap'][str(err_code)]))
 
     def fight(self, where):
         fid = str(self.config[where]['fid'])
         kw = str(self.config[where]['kw'])
+        self._fighting = True
         while globals().get('task_queue') and self._fighting:
             id = globals().get('task_queue').popleft()
             self.comment(kw, id, fid)
