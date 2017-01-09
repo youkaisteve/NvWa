@@ -11,7 +11,7 @@ from Scout import Scout
 from StaffOfficer import StaffOfficer
 from Soilder import Soilder
 from HeadQuarters import *
-from baidu.baiduclient import login
+from baidu import login
 
 
 class Commander:
